@@ -82,7 +82,5 @@ public class Board {
         return getAllNeighbors(countryName).contains(country);
     }
 
-//    public boolean areConnected(Country startCountry,Country targetCountry){
-//
-//    }
+
 }

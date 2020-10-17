@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.*;
 
 public class Game {
@@ -7,6 +8,8 @@ public class Game {
     private final ArrayList<Player> players;
     private final ArrayList<Country> allCountries;
     private final ArrayList<Continent> allContinents;
+
+    private LinkedHashSet<Country> neighborCountries;
 
     private int numberPlayers;
     private int initialArmies;
@@ -19,6 +22,8 @@ public class Game {
         allCountries =board.getAllCountries();
         allContinents = board.getAllContinents();
         scanner = new Scanner(System.in);
+        neighborCountries = new LinkedHashSet<>();
+
         initialGame();
         System.out.println("Alright! Let's start battling!");
         processGaming();
@@ -57,7 +62,15 @@ public class Game {
                 System.out.println("\nIt's "+player.getName()+"'s turn:");
                 draft(player);
                 attack(player);
-//                fortify();
+                checkWinner();
+                fortify(player);
+                checkContinent(player);
+            }
+            for(Player player:players){
+                checkContinent(player);
+                assignArmies(player);
+                player.printPlayerInfo();
+                player.addContinentBonus();
             }
         }
     }
@@ -315,6 +328,79 @@ public class Game {
         defenceCountry.setHolder(attackCountry.getHolder());
         attackCountry.getHolder().addCountry(defenceCountry);
         defenceCountry.increaseArmies(deployTroops);
+    }
+
+    public void fortify(Player player){
+        String fortifyCountryString;
+        Country fortifyCountry;
+        neighborCountries.clear();
+        System.out.println("It's FORTIFY stage, you have these territories can fortify:");
+        for(Country country: player.getCountries()) {
+            if(country.getArmies()>1)System.out.println(country.shortDescription()+" ");
+        }
+        do {
+            System.out.println("Which territory you want to fortify?");
+            fortifyCountryString = scanner.nextLine();
+            if(player.checkCountryByString(fortifyCountryString)) {
+                fortifyCountry = player.getCountryByString(fortifyCountryString);
+                break;
+            }else{
+                System.out.println("Please check your input of territory's name.");
+            }
+        }while (true);
+        addNeighborCountries(fortifyCountry,player);
+        neighborCountries.remove(fortifyCountry);
+        System.out.println("You have these territories connect to "+fortifyCountry.getName());
+        for(Country country:neighborCountries){
+            System.out.println(country.shortDescription()+" ");
+        }
+        Country fortified;
+        do {
+            System.out.println("Which territory do you want to be fortified?");
+            String fortifiedString = scanner.nextLine();
+            if(player.checkCountryByString(fortifiedString)) {
+                fortified = player.getCountryByString(fortifiedString);
+                break;
+            }else System.out.println("Please check your input of territory's name.");
+        }while(true);
+
+        do{
+            System.out.println("How many troops do you want to fortify?");
+            int troop = scanner.nextInt();
+            scanner.nextLine();
+            if(troop>fortifyCountry.getArmies())System.out.println("You don't have so much troops in this country..");
+            else if(troop>(fortifyCountry.getArmies()-1))System.out.println("Please leave at least one troop to defence");
+            else{
+                fortifyCountry.decreaseArmies(troop);
+                fortified.increaseArmies(troop);
+                break;
+            }
+        }while(true);
+    }
+
+    public void addNeighborCountries(Country country, Player player){
+        int size = neighborCountries.size();
+        for(Country neighbor: board.getAllNeighbors(country.getName())){
+            for(Player player1:players){
+                if(player1.checkCountryByString(neighbor.getName())&&(player1.getName().equals(player.getName()))){
+                    neighborCountries.add(player1.getCountryByString(neighbor.getName()));
+                    if(neighborCountries.size()!=size) addNeighborCountries(player1.getCountryByString(neighbor.getName()),player);
+                    else break;
+                }
+            }
+        }
+    }
+
+    public void checkWinner(){
+        for(Player player:players){
+            if(player.getCountries().size()==0){
+                players.remove(player);
+            }
+        }
+        if(players.size()==1){
+            System.out.println("Congratulation, we have the winner: "+players.get(0).getName());
+            System.exit(-1);
+        }
     }
 
 
