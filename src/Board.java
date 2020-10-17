@@ -70,17 +70,8 @@ public class Board {
         return new ArrayList<>(continentHashMap.values());
     }
 
-    public ArrayList<String> getAllContinentsString(){
-        return (ArrayList<String>)continentHashMap.keySet();
-    }
-
     public ArrayList<Country> getAllNeighbors(String countryName){
         return neighbors.get(countryName);
     }
-
-    public boolean areNeighbors(String countryName,Country country){
-        return getAllNeighbors(countryName).contains(country);
-    }
-
 
 }

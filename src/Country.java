@@ -5,7 +5,6 @@ public class Country {
     private String name;
     private int armies;
     private Player holder;
-    private ArrayList<Country> neighborCountries;
 
     public Country(String name){
         this.name = name;
@@ -20,10 +19,6 @@ public class Country {
         this.holder = holder;
     }
 
-    public void addNeighborCountries(ArrayList<Country> neighbors){
-        this.neighborCountries =neighbors;
-    }
-
     public String getName() {
         return name;
     }
@@ -34,10 +29,6 @@ public class Country {
 
     public Player getHolder() {
         return holder;
-    }
-
-    public ArrayList<Country> getNeighborCountries() {
-        return neighborCountries;
     }
 
     public void increaseArmies(int increase){
