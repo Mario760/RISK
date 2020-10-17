@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 public class Dices {
     private ArrayList<Integer> dices;
@@ -12,7 +13,7 @@ public class Dices {
 
     public void diceRolling(){
         for(int i = 0; i < dicesAmount; i++){
-            dices.add((int)Math.random()*6+1);
+            dices.add(new Random().nextInt(6)+1);
         }
     }
 
@@ -21,15 +22,13 @@ public class Dices {
         Collections.reverse(dices);
     }
 
-    public int getLargestDice(){
-        return dices.get(0);
+    public int getDicesAmount(){
+        return dicesAmount;
     }
 
-    public int getMiddleDice(){
-        return dices.get(1);
+    public int getIndexDice(int index){
+        sortDices();
+        return dices.get(index);
     }
 
-    public int getSmallestDice(){
-        return dices.get(dices.size()-1);
-    }
 }

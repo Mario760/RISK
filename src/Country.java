@@ -47,4 +47,6 @@ public class Country {
     public void decreaseArmies(int decrease){
         armies -= decrease;
     }
+
+    public String shortDescription(){return getName()+"("+getArmies()+" troops)";}
 }

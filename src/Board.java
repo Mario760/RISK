@@ -1,4 +1,3 @@
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -8,8 +7,11 @@ import java.util.Scanner;
 
 public class Board {
 
-    private ArrayList<Country> countries;
-    private ArrayList<Continent>continents;
+//    private ArrayList<Country> countries;
+//    private ArrayList<Continent>continents;
+
+    private HashMap<String,Country> countryHashMap;
+    private HashMap<String,Continent> continentHashMap;
     private HashMap<String,ArrayList<Country>> neighbors;
 
     public Board()throws IOException{
@@ -20,15 +22,16 @@ public class Board {
 
     public void readCountryFile() throws FileNotFoundException{
         File countryFile = new File("src/Countries.txt");
-        countries = new ArrayList<>();
+        countryHashMap = new HashMap<>();
         Scanner scanner = new Scanner(countryFile);
         while(scanner.hasNext()){
-            countries.add(new Country(scanner.nextLine()));
+            String str = scanner.nextLine();
+            countryHashMap.put(str,new Country(str));
         }
     }
 
     public void readContinentFile() throws FileNotFoundException{
-        continents = new ArrayList<>();
+        continentHashMap = new HashMap<>();
         File continentFile = new File("src/Continents.txt");
         Scanner scanner = new Scanner(continentFile);
         while(scanner.hasNext()){
@@ -37,7 +40,7 @@ public class Board {
             for(int i = 2; i< array.length;i++){
                 tempCountries.add(new Country(array[i]));
             }
-            continents.add(new Continent((String) array[0],Integer.parseInt(array[1]),tempCountries));
+            continentHashMap.put(array[0],new Continent(array[0],Integer.parseInt(array[1]),tempCountries));
         }
     }
 
@@ -56,11 +59,19 @@ public class Board {
     }
 
     public ArrayList<Country> getAllCountries() {
-        return countries;
+        return new ArrayList<>(countryHashMap.values());
+    }
+
+    public ArrayList<String> getAllCountriesString() {
+        return (ArrayList<String>) countryHashMap.keySet();
     }
 
     public ArrayList<Continent> getAllContinents(){
-        return continents;
+        return new ArrayList<>(continentHashMap.values());
+    }
+
+    public ArrayList<String> getAllContinentsString(){
+        return (ArrayList<String>)continentHashMap.keySet();
     }
 
     public ArrayList<Country> getAllNeighbors(String countryName){
@@ -70,4 +81,8 @@ public class Board {
     public boolean areNeighbors(String countryName,Country country){
         return getAllNeighbors(countryName).contains(country);
     }
+
+//    public boolean areConnected(Country startCountry,Country targetCountry){
+//
+//    }
 }

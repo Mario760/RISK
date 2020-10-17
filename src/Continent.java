@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Continent {
     private String name;
@@ -22,4 +23,13 @@ public class Continent {
     public ArrayList<Country> getMembers() {
         return members;
     }
+
+    public ArrayList<String> memberString(){
+        ArrayList<String> memberString = new ArrayList<>();
+        for(Country country:members){
+            memberString.add(country.getName());
+        }
+        return memberString;
+    }
+
 }
