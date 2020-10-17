@@ -259,6 +259,10 @@ public class Game {
     }
 
     public void battle(Country attackCountry,Country defenceCountry){
+        if(attackCountry.getHolder()==defenceCountry.getHolder()){
+            System.out.println("You cannot attack yourself!!");
+            return;
+        }
         int defenceArmies;
         int attackArmies=1;
         if(defenceCountry.getArmies()>=2)defenceArmies=2;
