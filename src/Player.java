@@ -91,7 +91,7 @@ public class Player {
 
     public void gainArmiesFromTerritory(){
         int bonus = this.getCountries().size()/3;
-        if(bonus == 0){bonus = 1;}
+        if(bonus < 3){bonus = 3;}
         System.out.println("Player " + this.getName()+" has "+this.getCountries().size()+" territories, add "+bonus+" troops.");
         this.increaseArmy(bonus);
         addContinentBonus();

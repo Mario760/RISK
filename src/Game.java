@@ -68,7 +68,7 @@ public class Game {
             }
             for(Player player:players){
                 checkContinent(player);
-                assignArmies(player);
+                player.gainArmiesFromTerritory();
                 player.printPlayerInfo();
                 player.addContinentBonus();
             }
