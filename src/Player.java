@@ -29,10 +29,6 @@ public class Player {
         return new ArrayList<>(territories.values());
     }
 
-    public ArrayList<String> getTerritoriesString(){return new ArrayList<>(territories.keySet());}
-
-    public ArrayList<String> getContinentsString(){return new ArrayList<>(continents.keySet());}
-
     public ArrayList<Continent> getContinents() {
         return new ArrayList<>(continents.values());
     }

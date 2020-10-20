@@ -20,10 +20,6 @@ public class Continent {
         return bonusTroops;
     }
 
-    public ArrayList<Territory> getMembers() {
-        return members;
-    }
-
     public ArrayList<String> memberString(){
         ArrayList<String> memberString = new ArrayList<>();
         for(Territory territory:members){
