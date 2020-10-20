@@ -17,7 +17,7 @@ public class Board {
     }
 
     public void readCountryFile() throws IOException {
-        URL countryFile = new URL("http://m.uploadedit.com/busd/1603218523547.txt");
+        URL countryFile = new URL("http://m.uploadedit.com/busd/1603223939868.txt");
         countryHashMap = new HashMap<>();
         Scanner scanner = new Scanner(countryFile.openStream());
         while(scanner.hasNext()){
@@ -28,7 +28,7 @@ public class Board {
 
     public void readContinentFile() throws IOException {
         continentHashMap = new HashMap<>();
-        URL continentFile = new URL("http://m.uploadedit.com/busd/1603218597773.txt");
+        URL continentFile = new URL("http://m.uploadedit.com/busd/1603223981907.txt");
         Scanner scanner = new Scanner(continentFile.openStream());
         while(scanner.hasNext()){
             String[] array = scanner.nextLine().split(",");
@@ -42,7 +42,7 @@ public class Board {
 
     public void readNeighborFile() throws IOException {
         neighbors = new HashMap<>();
-        URL neighborFile = new URL("http://m.uploadedit.com/busd/1603218631437.txt");
+        URL neighborFile = new URL("http://m.uploadedit.com/busd/1603224004897.txt");
         Scanner scanner = new Scanner(neighborFile.openStream());
         while(scanner.hasNext()){
             String[] array = scanner.nextLine().split(",");
