@@ -209,11 +209,12 @@ public class Game {
         String defenceCountryString = null;
         Country attackCountry = null;
         Country defenceCountry;
+        Outterloop:
         do{
             while(true) {
                 System.out.println("Please enter your territory that you want to launch an offense. (Enter finish to finish this stag)");
                 attackCountryString = scanner.nextLine();
-                if (attackCountryString.equals("finish")) break;
+                if (attackCountryString.equals("finish")) break Outterloop;
                 else if (!player.checkCountryByString(attackCountryString)) {
                     System.out.println("Please enter your own territory's name...");
                     continue;

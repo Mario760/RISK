@@ -3,6 +3,10 @@
     <output-path>$PROJECT_DIR$/out/artifacts/RISK_jar</output-path>
     <root id="archive" name="RISK.jar">
       <element id="module-output" name="RISK" />
+      <element id="module-source" name="RISK" />
+      <element id="file-copy" path="$PROJECT_DIR$/Continents.txt" />
+      <element id="file-copy" path="$PROJECT_DIR$/Countries.txt" />
+      <element id="file-copy" path="$PROJECT_DIR$/Neighbors.txt" />
     </root>
   </artifact>
 </component>

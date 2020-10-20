@@ -1,15 +1,12 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
 public class Board {
-
-//    private ArrayList<Country> countries;
-//    private ArrayList<Continent>continents;
 
     private HashMap<String,Country> countryHashMap;
     private HashMap<String,Continent> continentHashMap;
@@ -21,20 +18,20 @@ public class Board {
         readNeighborFile();
     }
 
-    public void readCountryFile() throws FileNotFoundException{
-        File countryFile = new File("src/Countries.txt");
+    public void readCountryFile() throws IOException {
+        URL countryFile = new URL("http://m.uploadedit.com/busd/1603218523547.txt");
         countryHashMap = new HashMap<>();
-        Scanner scanner = new Scanner(countryFile);
+        Scanner scanner = new Scanner(countryFile.openStream());
         while(scanner.hasNext()){
             String str = scanner.nextLine();
             countryHashMap.put(str,new Country(str));
         }
     }
 
-    public void readContinentFile() throws FileNotFoundException{
+    public void readContinentFile() throws IOException {
         continentHashMap = new HashMap<>();
-        File continentFile = new File("src/Continents.txt");
-        Scanner scanner = new Scanner(continentFile);
+        URL continentFile = new URL("http://m.uploadedit.com/busd/1603218597773.txt");
+        Scanner scanner = new Scanner(continentFile.openStream());
         while(scanner.hasNext()){
             String[] array = scanner.nextLine().split(",");
             ArrayList<Country> tempCountries = new ArrayList<>();
@@ -45,10 +42,10 @@ public class Board {
         }
     }
 
-    public void readNeighborFile() throws FileNotFoundException{
+    public void readNeighborFile() throws IOException {
         neighbors = new HashMap<>();
-        File neighborFile = new File("src/Neighbors.txt");
-        Scanner scanner = new Scanner(neighborFile);
+        URL neighborFile = new URL("http://m.uploadedit.com/busd/1603218631437.txt");
+        Scanner scanner = new Scanner(neighborFile.openStream());
         while(scanner.hasNext()){
             String[] array = scanner.nextLine().split(",");
             ArrayList<Country> neighborCountries =new ArrayList<>();
