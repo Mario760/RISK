@@ -1,5 +1,3 @@
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -58,10 +56,6 @@ public class Board {
 
     public ArrayList<Country> getAllCountries() {
         return new ArrayList<>(countryHashMap.values());
-    }
-
-    public ArrayList<String> getAllCountriesString() {
-        return (ArrayList<String>) countryHashMap.keySet();
     }
 
     public ArrayList<Continent> getAllContinents(){
