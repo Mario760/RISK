@@ -206,8 +206,8 @@ public class Game {
 
     public void attackStage(Player player){
         String attackCountryString;
-        String defenceCountryString = null;
-        Country attackCountry = null;
+        String defenceCountryString;
+        Country attackCountry;
         Country defenceCountry;
         Outterloop:
         do{
@@ -363,6 +363,7 @@ public class Game {
                     System.out.println("Please check your input of territory's name.");
                 }
             } while (true);
+            neighborCountries.add(fortifyCountry);
             addNeighborCountries(fortifyCountry, player);
             neighborCountries.remove(fortifyCountry);
             System.out.println("You have these territories connect to " + fortifyCountry.getName());
@@ -413,6 +414,7 @@ public class Game {
     public void checkWinner(){
         for(Player player:players){
             if(player.getCountries().size()==0){
+                System.out.println(player.getName()+" fails...");
                 players.remove(player);
             }
         }
