@@ -3,12 +3,12 @@ import java.util.HashMap;
 
 public class Continent {
     private String name;
-    private int bonusArmies;
-    private ArrayList<Country> members;
+    private int bonusTroops;
+    private ArrayList<Territory> members;
 
-    public Continent(String name, int bonusArmies, ArrayList<Country> members){
+    public Continent(String name, int bonusTroops, ArrayList<Territory> members){
         this.name = name;
-        this.bonusArmies = bonusArmies;
+        this.bonusTroops = bonusTroops;
         this.members = members;
     }
 
@@ -16,18 +16,18 @@ public class Continent {
         return name;
     }
 
-    public int getBonusArmies() {
-        return bonusArmies;
+    public int getBonusTroops() {
+        return bonusTroops;
     }
 
-    public ArrayList<Country> getMembers() {
+    public ArrayList<Territory> getMembers() {
         return members;
     }
 
     public ArrayList<String> memberString(){
         ArrayList<String> memberString = new ArrayList<>();
-        for(Country country:members){
-            memberString.add(country.getName());
+        for(Territory territory:members){
+            memberString.add(territory.getName());
         }
         return memberString;
     }

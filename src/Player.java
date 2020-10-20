@@ -3,34 +3,33 @@ import java.util.HashMap;
 
 public class Player {
     private String name;
-    private int armies;
-    private boolean hasContinent;
-    private HashMap<String,Country> countries;
+    private int troops;
+    private HashMap<String,Territory> territories;
     private HashMap<String,Continent> continents;
 
     public Player(String name){
         this.name = name;
-        countries = new HashMap<>();
+        territories = new HashMap<>();
         continents = new HashMap<>();
     }
 
-    public void setArmies(int armies){
-        this.armies = armies;
+    public void setTroops(int troops){
+        this.troops = troops;
     }
 
     public String getName() {
         return name;
     }
 
-    public int getArmies() {
-        return armies;
+    public int getTroops() {
+        return troops;
     }
 
-    public ArrayList<Country> getCountries() {
-        return new ArrayList<>(countries.values());
+    public ArrayList<Territory> getTerritories() {
+        return new ArrayList<>(territories.values());
     }
 
-    public ArrayList<String> getCountriesString(){return new ArrayList<>(countries.keySet());}
+    public ArrayList<String> getTerritoriesString(){return new ArrayList<>(territories.keySet());}
 
     public ArrayList<String> getContinentsString(){return new ArrayList<>(continents.keySet());}
 
@@ -38,46 +37,46 @@ public class Player {
         return new ArrayList<>(continents.values());
     }
 
-    public void addCountry(Country country){
-        countries.put(country.getName(),country);
+    public void addTerritory(Territory territorytry){
+        territories.put(territorytry.getName(),territorytry);
     }
 
     public void addContinent(Continent continent){
         continents.put(continent.getName(),continent);
     }
 
-    public void removeCountry(Country country){
-        countries.remove(country.getName());
+    public void removeTerritory(Territory territory){
+        territories.remove(territory.getName());
     }
 
     public void removeContinent(Continent continent){
         continents.remove(continent.getName());
     }
 
-    public void increaseArmy(int increase){
-        armies += increase;
+    public void increaseTroop(int increase){
+        troops += increase;
     }
 
-    public void decreaseArmy(int decrease){
-        armies -= decrease;
+    public void decreaseTroops(int decrease){
+        troops -= decrease;
     }
 
     public boolean haveContinent(){
         return !continents.isEmpty();
     }
 
-    public boolean checkCountryByString(String str){
-        return countries.containsKey(str);
+    public boolean checkTerritoryByString(String str){
+        return territories.containsKey(str);
     }
 
-    public Country getCountryByString(String str){
-        return countries.get(str);
+    public Territory getTerritoryByString(String str){
+        return territories.get(str);
     }
 
     public void printPlayerInfo(){
-        System.out.println("The player "+this.name+" has "+getArmies()+" troops and has "+countries.size()+" territories: ");
-        for (Country country:getCountries()){
-            System.out.println(country.shortDescription());
+        System.out.println("The player "+this.name+" has "+getTroops()+" troops and has "+territories.size()+" territories: ");
+        for (Territory territory:getTerritories()){
+            System.out.println(territory.shortDescription());
         }
         System.out.println();
         if(!continents.isEmpty()){
@@ -86,14 +85,13 @@ public class Player {
                 System.out.print(continent.getName()+", ");
             }
         }
-        System.out.println();
     }
 
-    public void gainArmiesFromTerritory(){
-        int bonus = this.getCountries().size()/3;
+    public void gainTroopsFromTerritory(){
+        int bonus = this.getTerritories().size()/3;
         if(bonus < 3){bonus = 3;}
-        System.out.println("Player " + this.getName()+" has "+this.getCountries().size()+" territories, add "+bonus+" troops.");
-        this.increaseArmy(bonus);
+        System.out.println("Player " + this.getName()+" has "+this.getTerritories().size()+" territories, add "+bonus+" troops.");
+        this.increaseTroop(bonus);
         addContinentBonus();
     }
 
@@ -101,15 +99,15 @@ public class Player {
         if(this.haveContinent()){
             System.out.println("Player " + this.getName()+" has continents: ");
             for(Continent continent:this.getContinents()){
-                this.increaseArmy(continent.getBonusArmies());
-                System.out.println(continent.getName()+", add "+continent.getBonusArmies()+" troops.8");
+                this.increaseTroop(continent.getBonusTroops());
+                System.out.println(continent.getName()+", add "+continent.getBonusTroops()+" troops.8");
             }
         }
     }
 
     public boolean checkAbilityToAttack(){
-        for(Country country:countries.values()){
-            if(country.getArmies()!=1)return true;
+        for(Territory territory:territories.values()){
+            if(territory.getTroops()!=1)return true;
         }
         return false;
     }

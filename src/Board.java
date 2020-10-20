@@ -6,9 +6,9 @@ import java.util.Scanner;
 
 public class Board {
 
-    private HashMap<String,Country> countryHashMap;
+    private HashMap<String,Territory> countryHashMap;
     private HashMap<String,Continent> continentHashMap;
-    private HashMap<String,ArrayList<Country>> neighbors;
+    private HashMap<String,ArrayList<Territory>> neighbors;
 
     public Board()throws IOException{
         readCountryFile();
@@ -22,7 +22,7 @@ public class Board {
         Scanner scanner = new Scanner(countryFile.openStream());
         while(scanner.hasNext()){
             String str = scanner.nextLine();
-            countryHashMap.put(str,new Country(str));
+            countryHashMap.put(str,new Territory(str));
         }
     }
 
@@ -32,9 +32,9 @@ public class Board {
         Scanner scanner = new Scanner(continentFile.openStream());
         while(scanner.hasNext()){
             String[] array = scanner.nextLine().split(",");
-            ArrayList<Country> tempCountries = new ArrayList<>();
+            ArrayList<Territory> tempCountries = new ArrayList<>();
             for(int i = 2; i< array.length;i++){
-                tempCountries.add(new Country(array[i]));
+                tempCountries.add(new Territory(array[i]));
             }
             continentHashMap.put(array[0],new Continent(array[0],Integer.parseInt(array[1]),tempCountries));
         }
@@ -46,15 +46,15 @@ public class Board {
         Scanner scanner = new Scanner(neighborFile.openStream());
         while(scanner.hasNext()){
             String[] array = scanner.nextLine().split(",");
-            ArrayList<Country> neighborCountries =new ArrayList<>();
+            ArrayList<Territory> neighborCountries =new ArrayList<>();
             for(int i=1; i< array.length;i++){
-                neighborCountries.add(new Country(array[i]));
+                neighborCountries.add(new Territory(array[i]));
             }
             neighbors.put(array[0],neighborCountries);
         }
     }
 
-    public ArrayList<Country> getAllCountries() {
+    public ArrayList<Territory> getAllCountries() {
         return new ArrayList<>(countryHashMap.values());
     }
 
@@ -62,7 +62,7 @@ public class Board {
         return new ArrayList<>(continentHashMap.values());
     }
 
-    public ArrayList<Country> getAllNeighbors(String countryName){
+    public ArrayList<Territory> getAllNeighbors(String countryName){
         return neighbors.get(countryName);
     }
 
