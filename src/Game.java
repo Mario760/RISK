@@ -185,9 +185,10 @@ public class Game {
                 try {
                     System.out.println("Please enter the number of troops you want to send.");
                     troops = scanner.nextInt();
+                    if(troops<1)System.out.println("Please enter valid input!");
                     scanner.nextLine();
                 } catch (Exception e) {
-                    System.out.println("Please enter invalid input!");
+                    System.out.println("Please enter valid input!");
                     scanner.next();
                 }
             }while(troops<1);
