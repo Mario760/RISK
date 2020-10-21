@@ -181,14 +181,16 @@ public class Game {
                 territory = scanner.nextLine();
                 if(!player.checkTerritoryByString(territory)) System.out.println("Please enter your own territory's name...");
             }while(!player.checkTerritoryByString(territory));
-            try {
-                System.out.println("Please enter the number of troops you want to send.");
-                troops = scanner.nextInt();
-                scanner.nextLine();
-            } catch (Exception e) {
-                System.out.println("Please enter invalid input!");
-                scanner.next();
-            }
+            do {
+                try {
+                    System.out.println("Please enter the number of troops you want to send.");
+                    troops = scanner.nextInt();
+                    scanner.nextLine();
+                } catch (Exception e) {
+                    System.out.println("Please enter invalid input!");
+                    scanner.next();
+                }
+            }while(troops<1);
             if(troops <= player.getTroops()) {
                 player.getTerritoryByString(territory).increaseTroops(troops);
                 player.decreaseTroops(troops);
@@ -270,7 +272,7 @@ public class Game {
         else defenceTroops=1;
         loop:
         while(true) {
-            System.out.println("How many territories(types) do you want to attack? (one/two/three/blitz/finish)");
+            System.out.println("How many troops(which type) do you want to attack? (one/two/three/blitz/finish)");
             String type = scanner.nextLine();
             switch (type) {
                 case "one":
@@ -284,6 +286,8 @@ public class Game {
                     break loop;
                 case "blitz":
                     blitz(attackCountry, defenceCountry);
+                    return;
+                case"finish":
                     return;
                 default:
                     System.out.println("Please re-select your option without typos!");
@@ -336,9 +340,12 @@ public class Game {
         int deployTroops;
         do {
             System.out.println(attackCountry.getHolder().getName() + " wins the battle! Currently you have "+attackCountry.getTroops()+ " in your original country.");
-            System.out.println(" How many troops deploy to " + defenceCountry.getName());
-            deployTroops = scanner.nextInt();
-            scanner.nextLine();
+            do {
+                System.out.println(" How many troops deploy to " + defenceCountry.getName());
+                deployTroops = scanner.nextInt();
+                if(deployTroops<1)System.out.println("Please input valid number");
+                scanner.nextLine();
+            }while(deployTroops<1);
             if(deployTroops>attackCountry.getTroops()){
                 System.out.println("You don't have so much troops, try it again.");
             }else if(deployTroops== attackCountry.getTroops()){
@@ -384,7 +391,7 @@ public class Game {
                 System.out.println(country.shortDescription() + " ");
             }
             do {
-                System.out.println("\nWhich territory do you want to be fortified?(Type \"break\" to re-select fortify country.");
+                System.out.println("\nWhich territory do you want to be fortified?(Type \"back\" to re-select fortify country.");
                 String fortifiedString = scanner.nextLine();
                 if(fortifiedString.equals("back"))break;
                 else if (fortifiedString.equals(fortifyCountryString)) {
@@ -397,11 +404,14 @@ public class Game {
                 } else System.out.println("Please check your input of territory's name.");
             } while (true);
         }
-
+        int troop;
         do {
-            System.out.println("How many troops do you want to fortify?");
-            int troop = scanner.nextInt();
-            scanner.nextLine();
+            do {
+                System.out.println("How many troops do you want to fortify?");
+                troop = scanner.nextInt();
+                if(troop<1)System.out.println("Please input valid number");
+                scanner.nextLine();
+            }while(troop<1);
             if (troop > fortifyCountry.getTroops())
                 System.out.println("You don't have so much troops in this country..");
             else if (troop > (fortifyCountry.getTroops() - 1))
