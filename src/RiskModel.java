@@ -1,10 +1,11 @@
+import javax.swing.*;
 import java.io.IOException;
 import java.util.*;
 
 /**
  * The main Game.
  */
-public class Game {
+public class RiskModel {
     private final Scanner scanner;
 
     private final ArrayList<Player> players;
@@ -18,12 +19,15 @@ public class Game {
 
     private final Board board;
 
+    public static DefaultListModel<String> allCountriesJList;
+    public static DefaultListModel<String> allContinentsJList;
+
     /**
      * Instantiates a new Game.
      *
      * @throws IOException the io exception
      */
-    public Game() throws IOException {
+    public RiskModel() throws IOException {
         players = new ArrayList<>();
         board = new Board();
         allCountries =board.getAllCountries();
@@ -31,31 +35,39 @@ public class Game {
         scanner = new Scanner(System.in);
         neighborCountries = new LinkedHashSet<>();
 
-        initialGame();
-        System.out.println("Alright! Let's start battling!");
-        processGaming();
+        allCountriesJList = new DefaultListModel<>();
+        allContinentsJList = new DefaultListModel<>();
+
+        for(Territory territory:allCountries)allCountriesJList.addElement(territory.getName());
+        for(Continent continent:allContinents)allContinentsJList.addElement(continent.getName());
+
+//        initialGame();
+//        System.out.println("Alright! Let's start battling!");
+//        processGaming();
     }
 
     /**
      * Initialize the game include add number of players, add troops to players depending on player numbers,
      * assign randomly territories with randomly troops to each player.
      */
-    public void initialGame() {
-        do{
-            boolean Error;
-            do {
-                try {
-                    System.out.println("Please enter the number of players (2-6 players): ");
-                    numberPlayers = scanner.nextInt();
-                    scanner.nextLine();
-                    Error = false;
-                } catch (Exception e) {
-                    Error = true;
-                    System.out.println("Please enter an legal positive integer to present the number of players!");
-                    scanner.next();
-                }
-            } while (Error);
-        }while(!(numberPlayers>1 && numberPlayers<7));
+    public void initialGame(int numberPlayers) throws IOException {
+//        do{
+//            boolean Error;
+//            do {
+//                try {
+//                    System.out.println("Please enter the number of players (2-6 players): ");
+//                    numberPlayers = scanner.nextInt();
+//                    scanner.nextLine();
+//                    Error = false;
+//                } catch (Exception e) {
+//                    Error = true;
+//                    System.out.println("Please enter an legal positive integer to present the number of players!");
+//                    scanner.next();
+//                }
+//            } while (Error);
+//        }while(!(numberPlayers>1 && numberPlayers<7));
+
+        numberPlayers = RiskView.getNumberPlayerDialog();
         addPlayers(numberPlayers);
         System.out.println("Awesome, we have "+ numberPlayers +" players, each player will have "+ setTroopsInitially()+" troops.");
         assignCountriesRandomly();
@@ -560,6 +572,8 @@ public class Game {
     }
 
 
+
+
     /**
      * The entry point of application.
      *
@@ -567,6 +581,6 @@ public class Game {
      * @throws IOException the io exception
      */
     public static void main(String[] args) throws IOException {
-        new Game();
+        new RiskModel();
     }
 }
