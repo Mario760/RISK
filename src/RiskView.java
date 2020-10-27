@@ -5,10 +5,13 @@ import java.io.IOException;
 
 public class RiskView extends JFrame {
     private JLabel statusLabel = new JLabel();
+    private JLabel continentsLabel = new JLabel();
 
     private JPanel mainPanel = new JPanel();
     private JPanel graphMapPanel = new JPanel();
     private JPanel operationPanel = new JPanel();
+    private JPanel combinedMapPrintInfoPanel = new JPanel();
+    private JPanel continentInfoPanel = new JPanel();
 
     private JTextArea printInfoArea = new JTextArea();
 
@@ -32,13 +35,13 @@ public class RiskView extends JFrame {
 
         model = new RiskModel();
 
-        statusLabel.setText("It's my turn.");
+//        statusLabel.setText("It's my turn.");
 
         getNumberPlayerDialog();
 
         printInfoScrollPane = new JScrollPane(printInfoArea);
         printInfoArea.setEditable(false);
-        printInfoArea.append("Welcome to Risk Game!");
+//        printInfoArea.append("Welcome to Risk Game!");
 
         startingTerritory.setModel(model.allCountriesJList);
         startingTerritory.setLayoutOrientation(JList.VERTICAL);
@@ -54,6 +57,12 @@ public class RiskView extends JFrame {
         label.setIcon(new ImageIcon("src/RiskMap.jpg"));
         graphMapPanel.add(label);
 
+        continentInfoPanel.add(continentsLabel);
+
+        combinedMapPrintInfoPanel.setLayout(new BorderLayout());
+        combinedMapPrintInfoPanel.add(printInfoScrollPane,BorderLayout.WEST);
+        combinedMapPrintInfoPanel.add(graphMapPanel,BorderLayout.EAST);
+
         operationPanel.setLayout(new BoxLayout(operationPanel,BoxLayout.Y_AXIS));
         operationPanel.add(startingTerritoryScrollPane);
         operationPanel.add(functionButton);
@@ -63,9 +72,9 @@ public class RiskView extends JFrame {
 
         mainPanel.setLayout(new BorderLayout());
         mainPanel.add(statusLabel,BorderLayout.NORTH);
-        mainPanel.add(printInfoScrollPane,BorderLayout.WEST);
-        mainPanel.add(graphMapPanel,BorderLayout.CENTER);
-        mainPanel.add(operationPanel,BorderLayout.EAST);
+        mainPanel.add(combinedMapPrintInfoPanel,BorderLayout.WEST);
+        mainPanel.add(operationPanel,BorderLayout.CENTER);
+        mainPanel.add(continentInfoPanel,BorderLayout.EAST);
 
         this.setLocation(200,50);
         this.setSize(720,360);
